@@ -2,47 +2,49 @@
 A TEE-Powered, Privacy-Preserving Autonomous Asset Management Protocol
 Abstract
 
-AgentFi is a decentralized, non-custodial asset management protocol designed to enable autonomous financial agents capable of managing capital, executing trades, and optimizing yield without requiring users to relinquish private key custody. By integrating ERC-6551 Token Bound Accounts, Trusted Execution Environments (TEE), and Fully Homomorphic Encryption (FHE), AgentFi establishes a new design paradigm for confidential, self-governing on-chain hedge fund primitives.
+AgentFi is a decentralized, non-custodial asset management protocol that enables autonomous financial agents to manage capital, execute trades, and optimize yield without requiring users to relinquish private key custody.
 
-The protocol ensures that capital ownership, intelligence execution, and decision privacy are strictly separated, eliminating single points of trust while preserving performance and composability.
+By combining ERC-6551 Token Bound Accounts, Trusted Execution Environments (TEE), and Fully Homomorphic Encryption (FHE), AgentFi introduces a new architectural paradigm for confidential, self-governing, and composable on-chain hedge fund primitives.
+
+The protocol enforces a strict separation between capital ownership, intelligence execution, and decision privacy while maintaining deterministic on-chain settlement.
 
 1. Introduction
 
-Autonomous finance promises scalable capital allocation without human intervention. However, existing approaches suffer from critical limitations:
+Autonomous finance systems today face fundamental trust and security limitations:
 
-Custodial risk from centralized bots
+Custodial risk from centralized trading bots
 
-Strategy leakage through transparent mempools
+Strategy leakage due to transparent mempools
 
 Front-running and MEV extraction
 
-Inability to prove secure execution of proprietary logic
+Inability to verify secure execution of proprietary logic
 
-AgentFi addresses these challenges by introducing sovereign AI agents whose capital is owned by NFTs, whose intelligence runs inside secure hardware, and whose decisions remain encrypted until the moment of execution.
+AgentFi addresses these challenges by introducing sovereign AI agents whose assets are owned by NFTs, whose intelligence executes inside secure hardware, and whose trade intents remain encrypted until execution.
 
 2. Design Principles
 
-AgentFi is built upon the following core principles:
+AgentFi is built on the following principles:
 
-Non-Custodial by Construction
-Users never transfer control of assets to EOAs or centralized services.
+Non-Custodial by Design
+Assets are never controlled by EOAs or centralized operators.
 
 Confidential Intelligence
-Trading strategies and intents are hidden from validators, sequencers, and bots.
+Trading strategies and intents are hidden from validators and third parties.
 
-Deterministic Execution
+Deterministic Settlement
 All capital movements settle atomically on-chain.
 
 Explainable Autonomy
-AI decisions are observable and auditable without leaking alpha.
+AI decisions are auditable without revealing proprietary strategy alpha.
 
 3. System Architecture
 
-AgentFi operates across three tightly-coupled layers, each responsible for a distinct trust domain.
+AgentFi consists of three tightly coupled layers, each responsible for a separate trust domain.
 
-3.1 Execution Layer — Shardeum / Sepolia
+3.1 Execution Layer (Shardeum / Sepolia)
 
-The execution layer hosts all state-changing operations and asset custody.
+The execution layer manages asset custody and final settlement.
 
 Responsibilities:
 
@@ -52,36 +54,35 @@ Atomic batch execution of trades
 
 Final settlement of capital movements
 
-Each AI agent is represented by an Agent NFT, which owns a unique TBA.
-This account acts as a sovereign vault, ensuring that only protocol-verified logic can initiate transactions.
+Each AI agent is represented by an NFT that owns a unique TBA, forming a sovereign on-chain vault.
 
-3.2 Privacy Layer — Inco Network (FHE)
+3.2 Privacy Layer (Inco Network – FHE)
 
-The privacy layer functions as a Confidential Dark Pool for intent aggregation.
+The privacy layer acts as a confidential coordination and aggregation layer.
 
-Key properties:
+Properties:
 
-Trade intents are encrypted client-side using FHE
+Trade intents are encrypted client-side
 
-Encrypted signals can be aggregated without decryption
+Encrypted signals are aggregated without decryption
 
-No participant gains visibility into individual strategies
+No participant gains access to individual strategy data
 
-By leveraging Fully Homomorphic Encryption, AgentFi ensures that alpha remains private even during coordination and consensus.
+Fully Homomorphic Encryption ensures that intent data remains private throughout aggregation and coordination.
 
-3.3 Intelligence Layer — Phala Trusted Execution Environment
+3.3 Intelligence Layer (Phala Trusted Execution Environment)
 
-The intelligence layer hosts the AI logic inside a hardware-secured enclave.
+The intelligence layer hosts AI logic inside a hardware-secured enclave.
 
 Capabilities:
 
-Decrypt aggregated signals
+Decryption of aggregated signals
 
-Execute proprietary quant strategies
+Execution of proprietary quant strategies
 
-Sign cross-chain transactions securely
+Secure transaction signing
 
-The TEE is the only entity permitted to access decrypted trade intents, enforcing strict confidentiality guarantees.
+Only the TEE can access decrypted trade intents, enforcing strict confidentiality guarantees.
 
 4. Core Workflow
 Step 1: Agent Initialization
@@ -94,15 +95,9 @@ Capital is deposited into the NFT-owned account
 
 Step 2: Market Analysis
 
-The AI agent retrieves:
+The AI agent retrieves market data, sentiment indicators, and historical context
 
-Market data
-
-Sentiment indicators
-
-Historical decision context via RAG
-
-Analysis is performed entirely inside the TEE
+Analysis occurs entirely within the TEE
 
 Step 3: Intent Shielding
 
@@ -114,37 +109,37 @@ Step 4: Blind Aggregation
 
 Multiple encrypted intents are aggregated
 
-No plaintext is ever revealed on-chain
+No plaintext is revealed on-chain
 
 Step 5: Atomic Settlement
 
-TEE decrypts the final signal
+The TEE decrypts the final signal
 
-Transaction is signed inside the enclave
+The transaction is signed inside the enclave
 
-Execution occurs atomically on Shardeum
+Execution occurs atomically on the execution layer
 
 5. AI Architecture
 5.1 TEE-Isolated AI Engine
 
-The AI engine runs as a dockerized Python service within a Phala SGX enclave.
+The AI engine runs as a dockerized Python service inside a Phala SGX enclave.
 
 Characteristics:
 
-No access to host OS or external memory
+No access to host OS
 
 Enclave-restricted APIs
 
 Deterministic execution guarantees
 
-Internal Endpoints:
+Internal endpoints:
 
 POST /v1/analyze/intent
 GET  /v1/memory/rag
 
 5.2 Retrieval-Augmented Memory (RAG)
 
-AgentFi integrates a lightweight RAG system backed by IPFS.
+AgentFi uses a lightweight RAG system backed by IPFS.
 
 Stored artifacts:
 
@@ -154,40 +149,40 @@ Market regimes
 
 Decision embeddings
 
-This enables adaptive behavior without centralized data silos.
+This enables adaptive decision-making without centralized data storage.
 
-6. Visual Explainability
+6. Explainability and Visualization
 
-AgentFi introduces a Visual Decision Forest, rendering the AI’s reasoning process as a graph.
+AgentFi provides a visual decision graph that represents the AI’s reasoning process.
 
 Benefits:
 
-Human-readable strategy interpretation
+Human-readable interpretation of decisions
 
-Post-trade audits
+Post-trade auditing
 
 Governance and compliance tooling
 
-Visualization does not reveal proprietary weights or alpha-generating parameters.
+Visualization does not expose proprietary weights or alpha-generating parameters.
 
 7. Security Model
-Threat Vector	Mitigation
-Private key leakage	Keys sealed inside TEE
-Front-running	FHE-encrypted intents
-Strategy theft	Blind aggregation
-Malicious operators	Hardware-backed enclaves
-Partial execution	Atomic settlement
-8. Gas & Yield Optimization
+Threat	Mitigation
+Private key leakage	Keys remain sealed inside TEE
+Front-running	FHE-encrypted trade intents
+Strategy theft	Blind encrypted aggregation
+Malicious operators	Hardware-backed enclave isolation
+Partial execution	Atomic transaction settlement
+8. Gas and Yield Optimization
 
-Idle capital is automatically deployed into lending protocols
+Idle capital is automatically deployed into yield-generating protocols
 
-Trades are delayed during periods of high gas volatility
+Trades are delayed during high gas volatility
 
-Execution timing is optimized by the TEE to preserve margins
+Execution timing is optimized inside the TEE
 
 9. Extensibility
 
-AgentFi is designed as a modular protocol.
+AgentFi is designed as a modular and extensible protocol.
 
 Planned extensions include:
 
@@ -195,31 +190,27 @@ Swappable AI personalities
 
 Cross-shard arbitrage strategies
 
-DAO-governed parameter tuning
+DAO-governed agent parameters
 
-Zero-Knowledge verification of enclave honesty
+Zero-knowledge verification of enclave integrity
 
-10. Future Roadmap
+10. Roadmap
 
-Personality Marketplace
-Tradeable AI strategy modules
+Personality marketplace for AI strategy modules
 
-Cross-Shard Arbitrage
-Atomic execution across Shardeum shards
+Cross-shard atomic arbitrage
 
-ZKP Audits
-Cryptographic verification of TEE integrity
+Zero-knowledge TEE audits
 
-Composable Agent DAOs
-Collective governance of autonomous agents
+DAO-controlled autonomous agents
 
 11. Conclusion
 
-AgentFi redefines autonomous finance by separating capital ownership, intelligence execution, and decision privacy into independently verifiable layers. This architecture enables trust-minimized, censorship-resistant, and front-run-proof financial agents capable of operating at scale.
+AgentFi introduces a new model for autonomous on-chain asset management by separating capital ownership, intelligence execution, and decision privacy into independently verifiable layers.
 
-AgentFi represents a foundational primitive for the next generation of decentralized hedge funds.
+This architecture enables trust-minimized, censorship-resistant, and front-run-proof financial agents capable of operating at scale.
 
-📄 License
+License
 
 This project is licensed under the MIT License.
-Refer to the LICENSE file for details.
+See the LICENSE file for details.
